@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="dotsquares" sortOrder="999" translate="label">
+			<label>dotsquares</label>
+		</tab>
+		<section id="maintenance" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+			<label>Maintenance</label>
+			<tab>dotsquares</tab>
+			<resource>Dotsquares_Maintenance::config_dotsquares_maintenance</resource>
+			<group id="general" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>Maintenance Mode Settings</label>
+				<field id="enable" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>Enable</label>
+					<comment/>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="whitelist" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="textarea">
+					<label>Allowed IPs</label>
+					<comment>IPs that can access Site</comment>
+					<depends>
+						<field id="enable">1</field>
+					</depends>
+				</field>
+				<field id="global503_error" translate="label" type="editor" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Maintenance Page Text</label>
+					<comment>Show this message when site is under maintenance mode</comment>
+					<frontend_model>Dotsquares\Maintenance\Block\Adminhtml\System\Config\Editor</frontend_model>
+				</field>
+			</group>
+			<group id="countdown" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label">
+				<label>Countdown Timer Configuration</label>
+				<field id="enable_countdown_timer" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>Enable Countdown Timer</label>
+					<comment>Enable or disable timer</comment>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="countdown_timer_text" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="20" translate="label" type="text">
+					<label>Countdown Timer Text</label>
+					<comment>Add text for countdown timer</comment>
+					<depends>
+						<field id="enable_countdown_timer">1</field>
+					</depends>
+				</field>
+				<field id="total_hours" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label" type="text">
+					<label>Total Hours</label>
+					<comment>Add hours till then you want to enable the maintenance mode</comment>
+					<depends>
+						<field id="enable_countdown_timer">1</field>
+					</depends>
+				</field>
+				<field id="total_min" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40" translate="label" type="text">
+					<label>Total Minute(s)</label>
+					<comment>Add Minute till then you want to enable the maintenance mode</comment>
+					<depends>
+						<field id="enable_countdown_timer">1</field>
+					</depends>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<maintenance>
+			<general>
+				<global503_error><![CDATA[<h1>Service Temporarily Unavailable</h1>
+<p>The server is temporarily unable to service your request due to maintenance downtime or capacity problems. Please try again later.</p>]]></global503_error>
+			 <enable_time>NULL</enable_time>
+			</general>
+			<countdown>
+				<enable_countdown_timer>0</enable_countdown_timer>
+				<countdown_timer_text>Countdown timer</countdown_timer_text>
+				<total_hours>0</total_hours>
+				<total_min>5</total_min>
+			</countdown>
+		</maintenance>
+	</default>
+</config>

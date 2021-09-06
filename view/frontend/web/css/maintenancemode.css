@@ -1,0 +1,64 @@
+body{ margin:0; background-color:#CCCCCC; text-align:center; font-family:Arial, Helvetica, sans-serif; }
+.numbers {
+    padding: 0px;
+    width: 45px;
+    text-align: center;
+    font-family: Arial;            
+    font-size: 28px;
+    font-weight: bold;   
+    font-style: normal;   
+    color: #FFFFFF;       
+}
+.title {    
+    border-style: none;
+    padding: 0px 0px 3px 0px;
+    width: 45px;
+    text-align: center;
+    font-family: Arial;
+    font-size: 10px;
+    font-weight: bold;    
+    color: #FFFFFF;       
+}
+#timer-table {
+}
+
+.container {
+    margin: 0 auto;
+    position: relative;
+    max-width: 740px;
+}
+#header{ padding: 65px 0 15px; text-align: center; color:#000000; font-size:20px; }
+
+#header .logo {  margin: 0 0 40px; }
+.countdown {
+    display: block;
+    text-align: center;
+    width: auto;
+	color:#FFFFFF;
+}
+.countdown .timer{  clear: both;  display: inline-block;   height: 85px;  margin: 0 auto;    *float:left; *margin-left:42%; padding: 0 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;     background: url("../images/time-bg.gif") repeat-x scroll 0 0 transparent; } 
+.timer div {  clear: right;  display: block;  float: left;  font-size: 14px;  height: 45px;  padding: 14px 10px; border-right:1px solid #363636; color:#868686; }
+.timer div.last {  border-right: 0 none; }
+.timer strong { color: #FFFFFF;  display: block;  font-size: 24px;  font-weight: bold; letter-spacing: 0;  margin: 3px 0 7px;  color:#fff; }
+#launch-text{ color:#c3181f;}
+
+.style {
+   width: 100%;
+   font-family: sans-serif;
+   font-weight: bold;
+}
+
+.colorDefinition {
+    color : #FFFFFF;
+}
+
+.size_xl {
+   font-size:50px;
+   border-width: 0px;
+}
+
+.size_lg {
+   font-size:44px;
+   border-width: 7px;
+   border-radius: 5px;
+}

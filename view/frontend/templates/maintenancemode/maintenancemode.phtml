@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
+<head>
+ <?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $assetRepository = $objectManager->get('Magento\Framework\View\Asset\Repository');?>
+<link rel="stylesheet" type="text/css" href="<?php echo $assetRepository->createAsset('Dotsquares_Maintenance::css/maintenancemode.css')->getUrl();?>" />
+
+<script type="text/javascript" src="<?php echo $assetRepository->createAsset('Dotsquares_Maintenance::js/jquery-2.0.3.js')->getUrl(); ?>"></script>
+<script type="text/javascript" src="<?php echo $assetRepository->createAsset('Dotsquares_Maintenance::js/jquery.countdownTimer.js')->getUrl();?>"></script>
+<title>Store Maintenance</title>
+</head>
+<body >
+<?php
+	$helperMaintenance = $objectManager->get('\Dotsquares\Maintenance\Helper\Data');
+	$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+    $maintenancePage = $helperMaintenance->getConfigValue('maintenance/general/global503_error');
+    echo $maintenancePage;
+?>
+<?php if($helperMaintenance->getConfigValue('maintenance/countdown/enable_countdown_timer')): ?>
+<div class="message clearfix" id="timer-text">
+    <h2 id="launch-text"><?php echo $helperMaintenance->getConfigValue('maintenance/countdown/countdown_timer_text'); ?></h2>
+</div>
+ 
+<form method="post" name="dummy" id="dummy-form"> 
+	<input type="hidden" value="yes" />
+	<?php $formKey = $objectManager->get('Magento\Framework\Data\Form\FormKey'); ?>
+	<input type="hidden" name="form_key" value="<?php echo $formKey->getFormKey();?>" />
+</form>
+ <script>
+ function submitAndReloadArea() {
+ 	
+	var url = '<?php echo $storeManager->getStore()->getUrl("maintenancemode/index/postDisable") ?>' ;
+	url = url + (url.match(new RegExp('\\?')) ? '&isAjax=true' : '?isAjax=true');
+	var data = jQuery('#dummy-form').serialize(); 
+	jQuery(function(){
+		jQuery.ajax({
+				url : url,
+				type : 'post',
+				dataType: "json",
+				data : data,
+				success : function(data) {
+					if(data.result == 'success'){
+						jQuery('.countdown').hide();
+						location.reload(true);
+					}else{
+						location.reload(true);
+					}
+				}
+			}); 
+	});
+	
+  }
+ </script>
+					 <div class="countdown" >
+							 <div class="timer" id="timer-table">
+							
+							<table style="border:0px;">
+                                <tr>
+                                    <td style="width:60px;text-align:center;">Days</td>
+                                    <td style="width:70px;text-align:center;">Hours</td>
+                                    <td style="width:60px;text-align:center;">Minutes</td>
+                                    <td style="width:70px;text-align:center;">Seconds</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4"><span id="given_date"></span></td>
+                                </tr>
+                            </table>
+							 </div>
+							</div>
+							<?php
+								$total_hour = $helperMaintenance->getConfigValue('maintenance/countdown/total_hours');
+								$total_min = $helperMaintenance->getConfigValue('maintenance/countdown/total_min');
+								
+								//$dateManager = $objectManager->get('\Magento\Framework\Stdlib\DateTime\DateTime');
+								
+								$currentDatetime = $helperMaintenance->getCurrentDatetime();
+								
+								$enabledDateTime = $helperMaintenance->getConfigValue('maintenance/general/enable_time');
+								
+								$givenDate = strtotime($enabledDateTime);
+								
+								$endDateTime = date('Y/m/d H:i:s', strtotime("+$total_hour hours +$total_min minutes", $givenDate)); 
+								
+								$start_date = new DateTime($endDateTime);
+								$since_start = $start_date->diff(new DateTime($currentDatetime));
+
+							?>
+
+                            <script>
+                                jQuery(function(){
+									jQuery("#given_date").countdowntimer({
+										startDate   : "<?php echo $currentDatetime;?>", 
+										dateAndTime : "<?php echo $endDateTime;?>", 
+										size : "lg",
+										timeUp : submitAndReloadArea
+									});
+								});
+                            </script>
+   <?php endif; ?>
+</body>	
+</html>
